@@ -5,12 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gedichten | De Kleine Ontdekkingshoek</title>
+
   <style>
     body {
       margin: 0;
       background: #101827;
       color: #f4f1e8;
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       line-height: 1.7;
     }
 
@@ -18,10 +19,31 @@
       background: #202d43;
       padding: 35px 20px;
       text-align: center;
+      border-bottom: 3px solid #ffd166;
     }
 
     h1, h2 {
       color: #ffd166;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 18px 12px;
+      background: #172235;
+    }
+
+    nav a {
+      color: #ffd166;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    nav a:hover {
+      background: #2d3b52;
     }
 
     main {
@@ -30,13 +52,11 @@
       padding: 20px;
     }
 
-    
     .gedicht {
       background: #202d43;
       padding: 24px;
       margin: 20px 0;
       border-radius: 14px;
-      white-space: pre-line;
     }
 
     summary {
@@ -44,123 +64,158 @@
       cursor: pointer;
       font-weight: bold;
       font-size: 1.3em;
+      margin-bottom: 15px;
     }
 
- 
- </style>
+    .gedichttekst {
+      white-space: pre-line;
+    }
+
+    .slotregel {
+      color: #ffd166;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    a {
+      color: #ffd166;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #cbd5e1;
+    }
+  </style>
 </head>
+
 <body>
+
   <header>
     <h1>Mijn gedichten</h1>
     <p>Woorden die vertellen wat er in je leeft.</p>
   </header>
 
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="muziek.html">Muziekhoek</a>
+    <a href="gedichten.html">Gedichten</a>
+    <a href="verhalen.html">Persoonlijke verhalen</a>
+    <a href="ontdekkingen.html">Ontdekkingen</a>
+    <a href="speelhoek.html">Speelhoek</a>
+  </nav>
 
-   
-<main>
-  <p>
-    Welkom in mijn gedichtenhoek.
-    Hier is ruimte voor gevoelens, herinneringen,
-    hoop en alles wat soms moeilijk uit te spreken is.
-  </p>
+  <main>
+    <p>
+      Welkom in mijn gedichtenhoek.
+      Hier is ruimte voor gevoelens, herinneringen,
+      hoop en alles wat soms moeilijk uit te spreken is.
+    </p>
 
-  <article class="gedicht">
-    <details>
- <summary style="color: #ffd166;">Hoop</summary>
-    Soms voelt de dag als een lange nacht,
-    alsof het licht mij niet meer vindt.
-    Alsof ik steeds opnieuw moet dragen
-    wat ik allang niet meer dragen kan.
+    <article class="gedicht">
+      <details>
+        <summary>Hoop</summary>
 
-    Maar ergens, heel diep vanbinnen,
-    zit nog iets wat zachtjes zegt:
-    blijf nog even, adem rustig,
-    misschien wordt morgen minder slecht.
+        <div class="gedichttekst">
+Soms voelt de dag als een lange nacht,
+alsof het licht mij niet meer vindt.
+Alsof ik steeds opnieuw moet dragen
+wat ik allang niet meer dragen kan.
 
-    Ik hoef vandaag niet sterk te zijn,
-    ik hoef niet alles te begrijpen.
-    Misschien is blijven soms genoeg,
-    één kleine stap, en dan weer kijken.
+Maar ergens, heel diep vanbinnen,
+zit nog iets wat zachtjes zegt:
+blijf nog even, adem rustig,
+misschien wordt morgen minder slecht.
 
-    Er zijn mensen die mij nodig hebben,
-    en een kat die op mij wacht.
-    Er zijn herinneringen aan wie ik was,
-    en misschien wie ik nog worden mag.
+Ik hoef vandaag niet sterk te zijn,
+ik hoef niet alles te begrijpen.
+Misschien is blijven soms genoeg,
+één kleine stap, en dan weer kijken.
 
-    Dus als het donker om mij heen valt
-    en ik even niet meer weet hoe verder,
-    dan hoef ik alleen maar vast te houden
-    aan dat kleine stukje licht in mij.
+Er zijn mensen die mij nodig hebben,
+en een kat die op mij wacht.
+Er zijn herinneringen aan wie ik was,
+en misschien wie ik nog worden mag.
 
-    Niet omdat alles goed zal komen,
-    maar omdat ik het nog niet weet.
+Dus als het donker om mij heen valt
+en ik even niet meer weet hoe verder,
+dan hoef ik alleen maar vast te houden
+aan dat kleine stukje licht in mij.
+
+Niet omdat alles goed zal komen,
+maar omdat ik het nog niet weet.
 En zolang ik ademhaal en blijf,
 is er een morgen die mij misschien nog iets geeft.
+        </div>
+      </details>
+    </article>
 
-  </details>
-</article>
+    <article class="gedicht">
+      <details>
+        <summary>Ik ben sterker dan ik dacht</summary>
 
-  <article class="gedicht">
-  <details>
- <summary style="color: #ffd166;">Ik ben sterker dan ik dacht</summary>
-    Er waren dagen vol verlangen,
-    momenten moeilijk, zwaar en lang.
-    Waar oude wegen bleven roepen,
-    en ik moest vechten met die drang.
+        <div class="gedichttekst">
+Er waren dagen vol verlangen,
+momenten moeilijk, zwaar en lang.
+Waar oude wegen bleven roepen,
+en ik moest vechten met die drang.
 
-    Maar telkens als de storm kwam razen,
-    en alles in mij zei: probeer,
-    bleef ik toch weer even staan,
-    en koos ik voor mezelf een keer.
+Maar telkens als de storm kwam razen,
+en alles in mij zei: probeer,
+bleef ik toch weer even staan,
+en koos ik voor mezelf een keer.
 
-    Ik heb de golven doorstaan,
-    ook als ik dacht: ik kan dit niet.
-    Ik liet de drang weer overwaaien,
-    en vond de rust terug in het verdriet.
+Ik heb de golven doorstaan,
+ook als ik dacht: ik kan dit niet.
+Ik liet de drang weer overwaaien,
+en vond de rust terug in het verdriet.
 
-    De dagen werden weken,
-    de weken gingen langzaam voort.
-    En zonder dat ik het steeds merkte,
-    werd ik sterker dan ik ooit had vermoed.
+De dagen werden weken,
+de weken gingen langzaam voort.
+En zonder dat ik het steeds merkte,
+werd ik sterker dan ik ooit had vermoed.
 
-    Ik hoef niet perfect te wezen,
-    ik hoef niet alles te verstaan.
-    Ik mag trots zijn op mijn stappen,
-    op de weg die ik ben gegaan.
+Ik hoef niet perfect te wezen,
+ik hoef niet alles te verstaan.
+Ik mag trots zijn op mijn stappen,
+op de weg die ik ben gegaan.
 
-    Want kijk eens waar ik nu al sta,
-    hoeveel ik zelf heb overwonnen.
-    Er is weer ruimte voor de toekomst,
-    een nieuw hoofdstuk is begonnen.
+Want kijk eens waar ik nu al sta,
+hoeveel ik zelf heb overwonnen.
+Er is weer ruimte voor de toekomst,
+een nieuw hoofdstuk is begonnen.
 
-    En mocht de storm ooit weer eens komen,
-    dan weet ik, diep vanbinnen, weer:
-    ik heb al zoveel overwonnen,
-    ik kan dit aan, ik kan nog meer.
+En mocht de storm ooit weer eens komen,
+dan weet ik, diep vanbinnen, weer:
+ik heb al zoveel overwonnen,
+ik kan dit aan, ik kan nog meer.
 
+Ik kijk niet langer naar wat achter mij ligt,
+ik draag mijn littekens, maar zoek het licht.
+De drang mag roepen, de storm mag bestaan.
+        </div>
 
-      Ik kijk niet langer naar wat achter mij ligt,
-      ik draag mijn littekens, maar zoek het licht.
-      De drang mag roepen, de storm mag bestaan.
+        <h2 class="slotregel">Mijn verleden schrijft niet langer mijn verhaal.</h2>
 
+        <p class="gedichttekst">
+Ik ben er nog, ik leef, ik bouw weer op,
+en deze keer geef ik mezelf niet op.
+        </p>
+      </details>
+    </article>
 
-    <h2>Mijn verleden schrijft niet langer mijn verhaal.</h2>
-
-    
-      Ik ben er nog, ik leef, ik bouw weer op,
-      en deze keer geef ik mezelf niet op.
-
-  </details>
-  </article>
-
-  <p><a href="index.html">← Terug naar de startpagina</a></p>
-</main>
-
- 
+    <p><a href="index.html">← Terug naar de homepage</a></p>
+  </main>
 
   <footer>
-    De Kleine Ontdekkingshoek
+    <p>De Kleine Ontdekkingshoek © 2026</p>
   </footer>
+
 </body>
 </html>
 
