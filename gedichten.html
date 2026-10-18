@@ -30,6 +30,7 @@
       padding: 20px;
     }
 
+    
     .gedicht {
       background: #202d43;
       padding: 24px;
@@ -38,16 +39,15 @@
       white-space: pre-line;
     }
 
-    a {
+    summary {
       color: #ffd166;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.3em;
     }
 
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #b7c3d6;
-    }
-  </style>
+ 
+ </style>
 </head>
 <body>
   <header>
@@ -55,7 +55,7 @@
     <p>Woorden die vertellen wat er in je leeft.</p>
   </header>
 
-  <main>
+
    
 <main>
   <p>
@@ -65,7 +65,8 @@
   </p>
 
   <article class="gedicht">
-    <h2>Hoop</h2>
+    <details>
+ <summary style="color: #ffd166;">Hoop</summary>
     Soms voelt de dag als een lange nacht,
     alsof het licht mij niet meer vindt.
     Alsof ik steeds opnieuw moet dragen
@@ -93,9 +94,11 @@
 
     Niet omdat alles goed zal komen,
     maar omdat ik het nog niet weet.
-    En zolang ik ademhaal en blijf,
-    is er een morgen die mij misschien nog iets geeft.
-  </article>
+En zolang ik ademhaal en blijf,
+is er een morgen die mij misschien nog iets geeft.
+
+  </details>
+</article>
 
   <article class="gedicht">
     <h2>Ik ben sterker dan ik dacht</h2>
