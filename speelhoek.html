@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speelhoek - De Kleine Ontdekkingshoek</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #101827;
+      color: #f4f1e8;
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    header {
+      padding: 35px 20px;
+      background: #202d43;
+    }
+
+    h1, h2 {
+      color: #ffd166;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 18px 12px;
+      background: #172235;
+    }
+
+    nav a {
+      color: #ffd166;
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 8px;
+    }
+
+    nav a:hover {
+      background: #30415b;
+      color: white;
+    }
+
+    main {
+      max-width: 650px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .kaart {
+      background: #202d43;
+      padding: 25px;
+      margin: 18px 0;
+      border-radius: 14px;
+    }
+
+    button {
+      padding: 12px 18px;
+      margin: 7px;
+      border: 0;
+      border-radius: 8px;
+      background: #ffd166;
+      color: #101827;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #ffe09a;
+    }
+
+    button:disabled {
+      cursor: default;
+      opacity: 0.7;
+    }
+
+    #antwoorden {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+
+    #antwoorden button {
+      margin: 0;
+    }
+
+    #feedback {
+      min-height: 28px;
+      font-weight: bold;
+    }
+
+    .terug {
+      color: #ffd166;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🎮 De Speelhoek</h1>
+    <p>Test je kennis en ontdek hoeveel je weet!</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="muziek.html">Muziek</a>
+    <a href="gedichten.html">Gedichten</a>
+    <a href="verhalen.html">Verhalen</a>
+    <a href="ontdekkingen.html">Ontdekkingen</a>
+  </nav>
+
+  <main>
+    <section class="kaart">
+      <h2>De grote kennisquiz</h2>
+      <p>Voetbal, wielrennen, dieren en algemene kennis!</p>
+
+      <p id="voortgang">Vraag 1 van 8</p>
+      <h3 id="vraag">De quiz wordt geladen...</h3>
+
+      <div id="antwoorden"></div>
+
+      <p id="feedback" aria-live="polite"></p>
+      <p id="score"></p>
+
+      <button id="volgende" hidden>Volgende vraag →</button>
+      <button id="opnieuw" hidden>Speel opnieuw</button>
+    </section>
+  </main>
+
+  <footer>
+    <p><a class="terug" href="index.html">← Terug naar de homepage</a></p>
+  </footer>
+
+  <script>
+    const vragen = [
+      {
+        vraag: "Welke club is de trots van Leeuwarden?",
+        opties: ["SC Heerenveen", "Cambuur", "FC Groningen", "Ajax"],
+        goed: 1
+      },
+      {
+        vraag: "Welke kleur trui draagt de leider van de Tour de France?",
+        opties: ["Groen", "Wit", "Geel", "Rood"],
+        goed: 2
+      },
+      {
+        vraag: "Hoeveel poten heeft een spin?",
+        opties: ["Zes", "Acht", "Tien", "Twaalf"],
+        goed: 1
+      },
+      {
+        vraag: "In welk land ligt Rome?",
+        opties: ["Spanje", "Frankrijk", "Portugal", "Italië"],
+        goed: 3
+      },
+      {
+        vraag: "Hoe heet de kat op de homepage?",
+        opties: ["Max", "Fenix", "Minoes", "Simba"],
+        goed: 1
+      },
+      {
+        vraag: "Hoeveel spelers staan er per team op het veld bij voetbal?",
+        opties: ["9", "10", "11", "12"],
+        goed: 2
+      },
+      {
+        vraag: "Welk dier staat bekend om zijn zwart-witte strepen?",
+        opties: ["Zebra", "Giraffe", "Olifant", "Tijger"],
+        goed: 0
+      },
+      {
+        vraag: "Wat is de hoofdstad van Nederland?",
+        opties: ["Rotterdam", "Utrecht", "Den Haag", "Amsterdam"],
+        goed: 3
+      }
+    ];
+
+    let nummer = 0;
+    let punten = 0;
+    let beantwoord = false;
+
+    const vraagElement = document.getElementById("vraag");
+    const antwoordenElement = document.getElementById("antwoorden");
+    const feedbackElement = document.getElementById("feedback");
+    const scoreElement = document.getElementById("score");
+    const voortgangElement = document.getElementById("voortgang");
+    const volgendeKnop = document.getElementById("volgende");
+    const opnieuwKnop = document.getElementById("opnieuw");
+
+    function toonVraag() {
+      beantwoord = false;
+      const huidige = vragen[nummer];
+
+      voortgangElement.textContent =
+        "Vraag " + (nummer + 1) + " van " + vragen.length;
+      vraagElement.textContent = huidige.vraag;
+      antwoordenElement.innerHTML = "";
+      feedbackElement.textContent = "";
+      scoreElement.textContent = "Je score: " + punten;
+      volgendeKnop.hidden = true;
+      opnieuwKnop.hidden = true;
+
+      huidige.opties.forEach(function(optie, index) {
+        const knop = document.createElement("button");
+        knop.textContent = optie;
+        knop.addEventListener("click", function() {
+          controleerAntwoord(index);
+        });
+        antwoordenElement.appendChild(knop);
+      });
+    }
+
+    function controleerAntwoord(keuze) {
+      if (beantwoord) return;
+      beantwoord = true;
+
+      const huidige = vragen[nummer];
+      const knoppen = antwoordenElement.querySelectorAll("button");
+
+      knoppen.forEach(function(knop) {
+        knop.disabled = true;
+      });
+
+      if (keuze === huidige.goed) {
+        punten++;
+        feedbackElement.textContent = "Helemaal goed! 🎉";
+      } else {
+        feedbackElement.textContent =
+          "Helaas! Het goede antwoord is: " +
+          huidige.opties[huidige.goed] + ".";
+      }
+
+      scoreElement.textContent = "Je score: " + punten;
+      volgendeKnop.hidden = false;
+
+      if (nummer === vragen.length - 1) {
+        volgendeKnop.textContent = "Bekijk eindscore";
+      } else {
+        volgendeKnop.textContent = "Volgende vraag →";
+      }
+    }
+
+    volgendeKnop.addEventListener("click", function() {
+      if (nummer < vragen.length - 1) {
+        nummer++;
+        toonVraag();
+      } else {
+        toonEindscore();
+      }
+    });
+
+    function toonEindscore() {
+      voortgangElement.textContent = "Quiz afgelopen!";
+      vraagElement.textContent = "Goed gedaan! 🏆";
+      antwoordenElement.innerHTML = "";
+      feedbackElement.textContent =
+        "Je hebt " + punten + " van de " + vragen.length +
+        " vragen goed!";
+      scoreElement.textContent =
+        punten === vragen.length
+          ? "Een perfecte score! Fantastisch!"
+          : "Bedankt voor het meespelen!";
+      volgendeKnop.hidden = true;
+      opnieuwKnop.hidden = false;
+    }
+
+    opnieuwKnop.addEventListener("click", function() {
+      nummer = 0;
+      punten = 0;
+      toonVraag();
+    });
+
+    toonVraag();
+  </script>
+
+</body>
+</html>
+
