@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aardrijkskundequiz | De Kleine Ontdekkingshoek</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #101827;
+            color: #f1f5f9;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+        h1, h2 {
+            color: #ffd166;
+        }
+
+        h1 {
+            text-shadow: 0 0 10px #ffd16644;
+        }
+
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 25px;
+            background: #172235;
+            border: 1px solid #ffd16666;
+            border-radius: 16px;
+            box-sizing: border-box;
+        }
+
+        .voortgang {
+            color: #ffd166;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .antwoord {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 13px;
+            background: #202d43;
+            color: #f1f5f9;
+            border: 1px solid #ffd16666;
+            border-radius: 9px;
+            font-size: 16px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .antwoord:hover:not(:disabled) {
+            background: #30415b;
+            border-color: #ffd166;
+        }
+
+        .antwoord:focus-visible,
+        .knop:focus-visible,
+        a:focus-visible {
+            outline: 3px solid #ffd166;
+            outline-offset: 3px;
+        }
+
+        .antwoord:disabled {
+            cursor: default;
+            opacity: 1;
+        }
+
+        .goed {
+            background: #24543e;
+            border-color: #72dfa4;
+        }
+
+        .fout {
+            background: #65353b;
+            border-color: #ff9292;
+        }
+
+        #feedback {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .knop {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: #ffd166;
+            color: #101827;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .knop:hover {
+            background: #ffe09a;
+        }
+
+        .verborgen {
+            display: none;
+        }
+
+        .terug {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .terug a {
+            color: #ffd166;
+            text-decoration: none;
+        }
+
+        .terug a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #aab5c5;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌍 De Grote Aardrijkskundequiz</h1>
+    <p>Ontdek hoe goed jij de wereld kent!</p>
+</header>
+
+<main class="quiz-container">
+
+    <div id="spel">
+        <div class="voortgang" id="voortgang"></div>
+
+        <h2 id="vraag"></h2>
+
+        <div id="antwoorden"></div>
+
+        <div id="feedback" aria-live="polite"></div>
+
+        <button
+            class="knop verborgen"
+            id="volgende"
+            type="button"
+            onclick="volgendeVraag()">
+            Volgende vraag
+        </button>
+    </div>
+
+    <div id="eindscherm" class="verborgen">
+        <h2>Quiz afgerond!</h2>
+        <p id="eindscore"></p>
+        <p id="eindtekst"></p>
+
+        <button class="knop" type="button" onclick="opnieuw()">
+            Speel opnieuw
+        </button>
+    </div>
+
+</main>
+
+<div class="terug">
+    <a href="index.html">← Terug naar De Kleine Ontdekkingshoek</a>
+</div>
+
+<footer>
+    <p>Blijf ontdekken, blijf leren! ✨</p>
+</footer>
+
+<script>
+    const vragen = [
+        {
+            vraag: "Wat is de hoofdstad van Australië?",
+            antwoorden: ["Sydney", "Melbourne", "Canberra", "Perth"],
+            goed: 2,
+            uitleg: "Canberra is de hoofdstad van Australië. Sydney is wel de grootste stad."
+        },
+        {
+            vraag: "In welke zee mondt de Donau uit?",
+            antwoorden: [
+                "De Zwarte Zee",
+                "De Middellandse Zee",
+                "De Oostzee",
+                "De Noordzee"
+            ],
+            goed: 0,
+            uitleg: "De Donau stroomt via een grote delta uit in de Zwarte Zee."
+        },
+        {
+            vraag: "Welk land is qua oppervlakte het grootste ter wereld?",
+            antwoorden: ["Canada", "China", "Verenigde Staten", "Rusland"],
+            goed: 3,
+            uitleg: "Rusland is qua oppervlakte het grootste land ter wereld."
+        },
+        {
+            vraag: "Op welk continent liggen de Andes?",
+            antwoorden: ["Afrika", "Zuid-Amerika", "Azië", "Europa"],
+            goed: 1,
+            uitleg: "De Andes vormen een enorme bergketen langs de westkant van Zuid-Amerika."
+        },
+        {
+            vraag: "In welk werelddeel ligt de Sahara?",
+            antwoorden: ["Afrika", "Azië", "Australië", "Zuid-Amerika"],
+            goed: 0,
+            uitleg: "De Sahara ligt in Noord-Afrika en is de grootste hete woestijn ter wereld."
+        },
+        {
+            vraag: "In welk deel van Azië ligt Japan?",
+            antwoorden: [
+                "Zuidwest-Azië",
+                "Centraal-Azië",
+                "Oost-Azië",
+                "Zuid-Azië"
+            ],
+            goed: 2,
+            uitleg: "Japan is een eilandstaat in Oost-Azië, in de Grote Oceaan."
+        },
+        {
+            vraag: "Welke rivier stroomt door Egypte en mondt uit in de Middellandse Zee?",
+            antwoorden: ["De Congo", "De Nijl", "De Amazone", "De Mekong"],
+            goed: 1,
+            uitleg: "De Nijl stroomt noordwaarts door Egypte en bereikt de Middellandse Zee."
+        },
+        {
+            vraag: "Welk van deze landen heeft geen kustlijn aan zee?",
+            antwoorden: ["Portugal", "Kroatië", "Griekenland", "Zwitserland"],
+            goed: 3,
+            uitleg: "Zwitserland is een land zonder kustlijn aan zee."
+        },
+        {
+            vraag: "In welk land ligt de Kilimanjaro?",
+            antwoorden: ["Kenia", "Tanzania", "Ethiopië", "Zuid-Afrika"],
+            goed: 1,
+            uitleg: "De Kilimanjaro ligt in Tanzania en is de hoogste berg van Afrika."
+        },
+        {
+            vraag: "Door welk van deze landen loopt de evenaar?",
+            antwoorden: ["Ecuador", "Chili", "Uruguay", "Argentinië"],
+            goed: 0,
+            uitleg: "De evenaar loopt door Ecuador in Zuid-Amerika. Het land is er zelfs naar vernoemd."
+        }
+    ];
+
+    let huidig = 0;
+    let score = 0;
+    let beantwoord = false;
+
+    function toonVraag() {
+        beantwoord = false;
+
+        document.getElementById("voortgang").textContent =
+            "Vraag " + (huidig + 1) + " van " + vragen.length;
+
+        document.getElementById("vraag").textContent =
+            vragen[huidig].vraag;
+
+        document.getElementById("feedback").textContent = "";
+        document.getElementById("volgende").classList.add("verborgen");
+
+        const vak = document.getElementById("antwoorden");
+        vak.replaceChildren();
+
+        vragen[huidig].antwoorden.forEach((antwoord, index) => {
+            const knop = document.createElement("button");
+
+            knop.type = "button";
+            knop.className = "antwoord";
+            knop.textContent =
+                String.fromCharCode(65 + index) + ". " + antwoord;
+
+            knop.addEventListener("click", () => controleer(index, knop));
+
+            vak.appendChild(knop);
+        });
+    }
+
+    function controleer(gekozen, knop) {
+        if (beantwoord) return;
+
+        beantwoord = true;
+
+        const vraag = vragen[huidig];
+        const knoppen = document.querySelectorAll(".antwoord");
+
+        knoppen.forEach(item => item.disabled = true);
+
+        if (gekozen === vraag.goed) {
+            score++;
+            knop.classList.add("goed");
+            document.getElementById("feedback").textContent =
+                "Goed gedaan! " + vraag.uitleg;
+        } else {
+            knop.classList.add("fout");
+            knoppen[vraag.goed].classList.add("goed");
+
+            document.getElementById("feedback").textContent =
+                "Helaas, dat is niet goed. " + vraag.uitleg;
+        }
+
+        const volgende = document.getElementById("volgende");
+        volgende.textContent =
+            huidig === vragen.length - 1
+                ? "Bekijk je score"
+                : "Volgende vraag";
+
+        volgende.classList.remove("verborgen");
+    }
+
+    function volgendeVraag() {
+        if (!beantwoord) return;
+
+        huidig++;
+
+        if (huidig < vragen.length) {
+            toonVraag();
+        } else {
+            toonEindscherm();
+        }
+    }
+
+    function toonEindscherm() {
+        document.getElementById("spel").classList.add("verborgen");
+        document.getElementById("eindscherm").classList.remove("verborgen");
+
+        document.getElementById("eindscore").textContent =
+            "Je hebt " + score + " van de " + vragen.length + " vragen goed!";
+
+        let tekst;
+
+        if (score === 10) {
+            tekst = "Fantastisch! Jij bent een echte wereldreiziger in kennis!";
+        } else if (score >= 7) {
+            tekst = "Heel goed gedaan! Je kent de wereld al behoorlijk goed.";
+        } else if (score >= 4) {
+            tekst = "Goed bezig! Er valt nog genoeg te ontdekken.";
+        } else {
+            tekst = "Elke ontdekkingsreiziger leert stap voor stap. Probeer het gerust opnieuw!";
+        }
+
+        document.getElementById("eindtekst").textContent = tekst;
+    }
+
+    function opnieuw() {
+        huidig = 0;
+        score = 0;
+
+        document.getElementById("eindscherm").classList.add("verborgen");
+        document.getElementById("spel").classList.remove("verborgen");
+
+        toonVraag();
+    }
+
+    toonVraag();
+</script>
+
+</body>
+</html>
+
