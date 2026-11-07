@@ -137,7 +137,7 @@
   <main>
     <section class="kaart">
       <h2>De grote kennisquiz</h2>
-      <p>Voetbal, wielrennen, dieren en algemene kennis!</p>
+      <p>Geschiedenis, wetenschap, natuur, sport, dieren en algemene kennis!</p>
 
       <p id="voortgang">Vraag 1 van 8</p>
       <h3 id="vraag">De quiz wordt geladen...</h3>
@@ -169,47 +169,57 @@
     <p><a class="terug" href="index.html">← Terug naar de homepage</a></p>
   </footer>
 
-  <script>
+ 
+    
+<script>
     const vragen = [
       {
-        vraag: "Welke club is de trots van Leeuwarden?",
-        opties: ["SC Heerenveen", "Cambuur", "FC Groningen", "Ajax"],
-        goed: 1
+        vraag: "Welk land won het eerste wereldkampioenschap voetbal in 1930?",
+        opties: ["Brazilië", "Italië", "Uruguay", "Argentinië"],
+        goed: 2,
+        uitleg: "Uruguay won in 1930 het eerste WK door Argentinië in de finale met 4-2 te verslaan."
       },
       {
-        vraag: "Welke kleur trui draagt de leider van de Tour de France?",
-        opties: ["Groen", "Wit", "Geel", "Rood"],
-        goed: 2
+        vraag: "Welke kleur heeft de leiderstrui in de Giro d'Italia?",
+        opties: ["Geel", "Roze", "Groen", "Wit"],
+        goed: 1,
+        uitleg: "De leider van het algemeen klassement in de Giro draagt de beroemde roze trui."
       },
       {
-        vraag: "Hoeveel poten heeft een spin?",
-        opties: ["Zes", "Acht", "Tien", "Twaalf"],
-        goed: 1
+        vraag: "Hoeveel harten heeft een octopus?",
+        opties: ["Eén", "Twee", "Drie", "Vier"],
+        goed: 2,
+        uitleg: "Een octopus heeft drie harten. Twee pompen bloed naar de kieuwen en één naar de rest van het lichaam."
       },
       {
-        vraag: "In welk land ligt Rome?",
-        opties: ["Spanje", "Frankrijk", "Portugal", "Italië"],
-        goed: 3
+        vraag: "Wat is de grootste planeet van ons zonnestelsel?",
+        opties: ["Saturnus", "Neptunus", "Aarde", "Jupiter"],
+        goed: 3,
+        uitleg: "Jupiter is de grootste planeet van ons zonnestelsel en is een enorme gasreus."
       },
       {
-        vraag: "Hoe heet de kat op de homepage?",
-        opties: ["Max", "Fenix", "Minoes", "Simba"],
-        goed: 1
+        vraag: "In welk museum hangt de beroemde Mona Lisa?",
+        opties: ["British Museum", "Het Louvre", "Rijksmuseum", "Prado"],
+        goed: 1,
+        uitleg: "De Mona Lisa van Leonardo da Vinci is te bewonderen in het Louvre in Parijs."
       },
       {
-        vraag: "Hoeveel spelers staan er per team op het veld bij voetbal?",
-        opties: ["9", "10", "11", "12"],
-        goed: 2
+        vraag: "Welke componist schreef de Negende Symfonie?",
+        opties: ["Mozart", "Bach", "Beethoven", "Chopin"],
+        goed: 2,
+        uitleg: "Ludwig van Beethoven componeerde zijn beroemde Negende Symfonie. Het werk bevat ook de bekende Ode an die Freude."
       },
       {
-        vraag: "Welk dier staat bekend om zijn zwart-witte strepen?",
-        opties: ["Zebra", "Giraffe", "Olifant", "Tijger"],
-        goed: 0
+        vraag: "Wat verzamelen bijen onder andere uit bloemen om honing te maken?",
+        opties: ["Nectar", "Boomschors", "Boombladeren", "Zand"],
+        goed: 0,
+        uitleg: "Bijen verzamelen nectar uit bloemen. Die verwerken ze tot honing."
       },
       {
-        vraag: "Wat is de hoofdstad van Nederland?",
-        opties: ["Rotterdam", "Utrecht", "Den Haag", "Amsterdam"],
-        goed: 3
+        vraag: "Wat is het scheikundige symbool voor goud?",
+        opties: ["Ag", "Fe", "Au", "Cu"],
+        goed: 2,
+        uitleg: "Het symbool Au komt van het Latijnse woord Aurum, dat goud betekent."
       }
     ];
 
@@ -231,19 +241,23 @@
 
       voortgangElement.textContent =
         "Vraag " + (nummer + 1) + " van " + vragen.length;
+
       vraagElement.textContent = huidige.vraag;
       antwoordenElement.innerHTML = "";
       feedbackElement.textContent = "";
       scoreElement.textContent = "Je score: " + punten;
+
       volgendeKnop.hidden = true;
       opnieuwKnop.hidden = true;
 
       huidige.opties.forEach(function(optie, index) {
         const knop = document.createElement("button");
         knop.textContent = optie;
+
         knop.addEventListener("click", function() {
           controleerAntwoord(index);
         });
+
         antwoordenElement.appendChild(knop);
       });
     }
@@ -261,14 +275,16 @@
 
       if (keuze === huidige.goed) {
         punten++;
-        feedbackElement.textContent = "Helemaal goed! 🎉";
+        feedbackElement.textContent =
+          "Helemaal goed! 🎉 " + huidige.uitleg;
       } else {
         feedbackElement.textContent =
-          "Helaas! Het goede antwoord is: " +
-          huidige.opties[huidige.goed] + ".";
+          "Helaas, het goede antwoord is " +
+          huidige.opties[huidige.goed] + ". " + huidige.uitleg;
       }
 
       scoreElement.textContent = "Je score: " + punten;
+
       volgendeKnop.hidden = false;
 
       if (nummer === vragen.length - 1) {
@@ -291,13 +307,25 @@
       voortgangElement.textContent = "Quiz afgelopen!";
       vraagElement.textContent = "Goed gedaan! 🏆";
       antwoordenElement.innerHTML = "";
+
       feedbackElement.textContent =
-        "Je hebt " + punten + " van de " + vragen.length +
-        " vragen goed!";
-      scoreElement.textContent =
-        punten === vragen.length
-          ? "Een perfecte score! Fantastisch!"
-          : "Bedankt voor het meespelen!";
+        "Je hebt " + punten + " van de " +
+        vragen.length + " vragen goed!";
+
+      if (punten === vragen.length) {
+        scoreElement.textContent =
+          "Een perfecte score! Fantastisch! 🌟";
+      } else if (punten >= 6) {
+        scoreElement.textContent =
+          "Geweldig gedaan! Je hebt veel kennis!";
+      } else if (punten >= 4) {
+        scoreElement.textContent =
+          "Goed bezig! Er valt altijd iets nieuws te ontdekken.";
+      } else {
+        scoreElement.textContent =
+          "Blijf oefenen, kennis groeit met iedere vraag!";
+      }
+
       volgendeKnop.hidden = true;
       opnieuwKnop.hidden = false;
     }
@@ -308,16 +336,8 @@
       toonVraag();
     });
 
-  
     toonVraag();
-  </script>
-
-  
-
-</body>
-</html>
-
-
+</script>
 </body>
 </html>
 
